@@ -12,4 +12,6 @@ clean_data.py script. Simply:
 - call 'python clean_data.py' or run the script with your own favorite method, 
 - assuming everything went well, the results should be returned in the form of a file named 'ottawa_bike_counters.csv'.
 
+The csv file can also be found at https://www.kaggle.com/m7homson/ottawa-bike-counters/home
+
 Have fun visualizing!
