@@ -15,14 +15,13 @@ location_corrections = {
     'LMET': ['5_LMET', '5^LMET'],
     'LLYN': ['6^LLYN', '6_LLYN'],
     'LBAY': ['7^LBAY', '7_LBAY'],
-    'SOMO': ['8^SOMO', '8_SOMO'],
+    'SOMO': ['8^SOMO', '8_SOMO', '8_SOMO (westbound only)'],
     'OYNG': ['9 OYNG', '9^OYNG', '9 OYNG 1'],
     'OGLD': ['10^OGLD'],
     'OBVW': ['11^OBVW', '11 OBVW'],
     'ADAWE BIKE': ['12a^ADAWE', 'ADAWE BIKE'],
     'ADAWE PED': ['ADAWE PED', '12b^ADAWE'],
     'PORTAGE': ['Portage Bridge', 'Portage'],
-    'SOMO (westbound only)': ['8_SOMO (westbound only)'],
     'Date': ['Date']
 }
 
