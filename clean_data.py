@@ -37,9 +37,16 @@ def correct_headers(header):
 
     return location_correction_matrix[header]
 
+
+def correct_value(value):
+   if isinstance(value, float):
+       return int(value)
+   return value
+
+
 def process_line(headers, input_line):
     return {
-        correct_headers(header): item for header, item in zip(headers, input_line) if
+        correct_headers(header): correct_value(item) for header, item in zip(headers, input_line) if
         '-' not in str(item)
         and 'Note' not in str(item)
         and str(item)
