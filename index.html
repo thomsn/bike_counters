@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <title>Bike Counters</title>
+</head>
+<body>
+
+<h1>Tomorrow 538 people are going to cycle on the Alexandra Bridge</h1>
+<br>
+<p>just cycling data - needs other locations</p>
+<svg class="justCycling"></svg>
+<br>
+<p>just weather data - needs other types</p>
+<svg class="justWeather"></svg>
+<br>
+<svg class="justWeather2"></svg>
+<br>
+<svg class="justWeather3"></svg>
+<br>
+<p>composite data vis -- (cycling vs temp) (cycling vs snow) (cycling vs precip) (cycling vs wind etc) (cycling vs time of year) (cycling vs day of week)</p>
+<br>
+<svg class="composite"></svg>
+<svg class="composite2"></svg>
+<svg class="composite3"></svg>
+<svg class="composite4"></svg>
+<svg class="composite5"></svg>
+<br>
+<p>cycling model -- SHOW WHERE THE MODEL MISSES</p>
+<br>
+<p>historical prediction</p>
+<br>
+
+
+</body>
+
+<script type="module">
+    d3.csv('bike_n_weather.csv').then(function (data) {
+        let chart_height = 500/2;
+        let chart_width = 1460;
+
+        var x_range = d3.scaleLinear()
+            .domain([0, 8*365])
+            .range([0, chart_width]);
+
+        let max_value = d3.max(data, function(d) { return parseInt(d.ALEX); });
+
+        var y_range = d3.scaleLinear()
+            .domain([0, max_value])
+            .range([chart_height, 0]);
+
+
+        let svg = d3.select('.justCycling');
+        svg.attr('width', chart_width).attr('height', chart_height);
+        svg.selectAll("g")
+            .data(data)
+            .enter()
+            .append("g")
+            .append("line")
+            .style('stroke-width', 1).style('stroke', 'black')
+            .attr('y1', chart_height)
+            .attr('y2', function (data) {
+                return y_range(data.ALEX);
+            })
+            .attr('x1', function (data, i) {
+                return x_range(i);
+            })
+            .attr('x2', function (data, i) {
+                return x_range(i);
+            })
+    });
+</script>
+
+<script type="module">
+    d3.csv('bike_n_weather.csv').then(function (data) {
+        let chart_height = 100;
+        let chart_width = 1460;
+
+        var x_range = d3.scaleLinear()
+            .domain([0, 8*365])
+            .range([0, chart_width]);
+
+        let max_value = d3.max(data, function(d) { return parseInt(d.MeanTemp); });
+        let min_value = d3.min(data, function(d) { return parseInt(d.MeanTemp); });
+
+        var y_range = d3.scaleLinear()
+            .domain([min_value, max_value])
+            .range([chart_height, 0]);
+
+
+        let svg = d3.select('.justWeather');
+        svg.attr('width', chart_width).attr('height', chart_height);
+        svg.selectAll("g")
+            .data(data)
+            .enter()
+            .append("g")
+            .append("line")
+            .style('stroke-width', 1).style('stroke', 'black')
+            .attr('y1', chart_height)
+            .attr('y2', function (data) {
+                return y_range(data.MeanTemp);
+            })
+            .attr('x1', function (data, i) {
+                return x_range(i);
+            })
+            .attr('x2', function (data, i) {
+                return x_range(i);
+            })
+    });
+</script>
+
+<script type="module">
+    d3.csv('bike_n_weather.csv').then(function (data) {
+        let chart_height = 100;
+        let chart_width = 1460;
+
+        var x_range = d3.scaleLinear()
+            .domain([0, 8*365])
+            .range([0, chart_width]);
+
+        let max_value = d3.max(data, function(d) { return parseInt(d.SnowonGrndcm); });
+
+        var y_range = d3.scaleLinear()
+            .domain([0, max_value])
+            .range([chart_height, 0]);
+
+
+        let svg = d3.select('.justWeather2');
+        svg.attr('width', chart_width).attr('height', chart_height);
+        svg.selectAll("g")
+            .data(data)
+            .enter()
+            .append("g")
+            .append("line")
+            .style('stroke-width', 1).style('stroke', 'black')
+            .attr('y1', chart_height)
+            .attr('y2', function (data) {
+                return y_range(data.SnowonGrndcm);
+            })
+            .attr('x1', function (data, i) {
+                return x_range(i);
+            })
+            .attr('x2', function (data, i) {
+                return x_range(i);
+            })
+    });
+</script>
+
+<script type="module">
+    d3.csv('bike_n_weather.csv').then(function (data) {
+        let chart_height = 100;
+        let chart_width = 1460;
+
+        var x_range = d3.scaleLinear()
+            .domain([0, 8*365])
+            .range([0, chart_width]);
+
+        let max_value = d3.max(data, function(d) { return parseInt(d.TotalPrecipmm); });
+
+        var y_range = d3.scaleLinear()
+            .domain([0, max_value])
+            .range([chart_height, 0]);
+
+
+        let svg = d3.select('.justWeather3');
+        svg.attr('width', chart_width).attr('height', chart_height);
+        svg.selectAll("g")
+            .data(data)
+            .enter()
+            .append("g")
+            .append("line")
+            .style('stroke-width', 1).style('stroke', 'black')
+            .attr('y1', chart_height)
+            .attr('y2', function (data) {
+                return y_range(data.TotalPrecipmm);
+            })
+            .attr('x1', function (data, i) {
+                return x_range(i);
+            })
+            .attr('x2', function (data, i) {
+                return x_range(i);
+            })
+    });
+</script>
+
+<script type="module">
+    d3.csv('bike_n_weather.csv').then(function (data) {
+        let chart_height = 300;
+        let chart_width = 400;
+
+        let max_value = d3.max(data, function(d) { return parseInt(d.ALEX); });
+        let min_value = d3.min(data, function(d) { return parseInt(d.ALEX); });
+        let max_x = d3.max(data, function(d) { return parseInt(d.MeanTemp); });
+        let min_x = d3.min(data, function(d) { return parseInt(d.MeanTemp); });
+
+        var x_range = d3.scaleLinear()
+            .domain([min_x, max_x])
+            .range([0, chart_width]);
+
+        var y_range = d3.scaleLinear()
+            .domain([min_value, max_value])
+            .range([chart_height, 0]);
+
+
+        let svg = d3.select('.composite');
+        svg.attr('width', chart_width).attr('height', chart_height);
+        svg.selectAll("g")
+            .data(data)
+            .enter()
+            .append("g")
+            .append("circle")
+            .style('stroke-width', 1).style('stroke', 'black')
+            .attr('cx', function (data) {
+                return x_range(data.MeanTemp);
+            })
+            .attr('cy', function (data) {
+                return y_range(data.ALEX);
+            })
+            .attr('r', 1);
+    });
+</script>
+
+<script type="module">
+    d3.csv('bike_n_weather.csv').then(function (data) {
+        let chart_height = 300;
+        let chart_width = 400;
+
+        let max_value = d3.max(data, function(d) { return parseInt(d.ALEX); });
+        let min_value = d3.min(data, function(d) { return parseInt(d.ALEX); });
+        let max_x = d3.max(data, function(d) { return parseInt(d.TotalPrecipmm); });
+        let min_x = d3.min(data, function(d) { return parseInt(d.TotalPrecipmm); });
+
+        var x_range = d3.scaleLinear()
+            .domain([min_x, max_x])
+            .range([0, chart_width]);
+
+        var y_range = d3.scaleLinear()
+            .domain([min_value, max_value])
+            .range([chart_height, 0]);
+
+
+        let svg = d3.select('.composite2');
+        svg.attr('width', chart_width).attr('height', chart_height);
+        svg.selectAll("g")
+            .data(data)
+            .enter()
+            .append("g")
+            .append("circle")
+            .style('stroke-width', 1).style('stroke', 'black')
+            .attr('cx', function (data) {
+                return x_range(data.TotalPrecipmm);
+            })
+            .attr('cy', function (data) {
+                return y_range(data.ALEX);
+            })
+            .attr('r', 1);
+    });
+</script>
+
+<script type="module">
+    d3.csv('bike_n_weather.csv').then(function (data) {
+        let chart_height = 300;
+        let chart_width = 400;
+
+        let max_value = d3.max(data, function(d) { return parseInt(d.ALEX); });
+        let min_value = d3.min(data, function(d) { return parseInt(d.ALEX); });
+        let max_x = d3.max(data, function(d) { return parseInt(d.SpdofMaxGustkmh); });
+        let min_x = d3.min(data, function(d) { return parseInt(d.SpdofMaxGustkmh); });
+
+        var x_range = d3.scaleLinear()
+            .domain([min_x, max_x])
+            .range([0, chart_width]);
+
+        var y_range = d3.scaleLinear()
+            .domain([min_value, max_value])
+            .range([chart_height, 0]);
+
+
+        let svg = d3.select('.composite3');
+        svg.attr('width', chart_width).attr('height', chart_height);
+        svg.selectAll("g")
+            .data(data)
+            .enter()
+            .append("g")
+            .append("circle")
+            .style('stroke-width', 1).style('stroke', 'black')
+            .attr('cx', function (data) {
+                return x_range(data.SpdofMaxGustkmh);
+            })
+            .attr('cy', function (data) {
+                return y_range(data.ALEX);
+            })
+            .attr('r', 1);
+    });
+</script>
+
+<script type="module">
+    d3.csv('bike_n_weather.csv').then(function (data) {
+        let chart_height = 300;
+        let chart_width = 400;
+
+        let max_value = d3.max(data, function(d) { return parseInt(d.ALEX); });
+        let min_value = d3.min(data, function(d) { return parseInt(d.ALEX); });
+        let max_x = d3.max(data, function(d) { return parseInt(d.SnowonGrndcm); });
+        let min_x = d3.min(data, function(d) { return parseInt(d.SnowonGrndcm); });
+
+        var x_range = d3.scaleLinear()
+            .domain([min_x, max_x])
+            .range([0, chart_width]);
+
+        var y_range = d3.scaleLinear()
+            .domain([min_value, max_value])
+            .range([chart_height, 0]);
+
+
+        let svg = d3.select('.composite4');
+        svg.attr('width', chart_width).attr('height', chart_height);
+        svg.selectAll("g")
+            .data(data)
+            .enter()
+            .append("g")
+            .append("circle")
+            .style('stroke-width', 1).style('stroke', 'black')
+            .attr('cx', function (data) {
+                return x_range(data.SnowonGrndcm);
+            })
+            .attr('cy', function (data) {
+                return y_range(data.ALEX);
+            })
+            .attr('r', 1);
+    });
+</script>
+
+<script type="module">
+    d3.csv('bike_n_weather.csv').then(function (data) {
+        let chart_height = 300;
+        let chart_width = 400;
+
+        let max_value = d3.max(data, function(d) { return parseInt(d.ALEX); });
+        let min_value = d3.min(data, function(d) { return parseInt(d.ALEX); });
+        let max_x = d3.max(data, function(d) { return parseInt(d.Weekday); });
+        let min_x = d3.min(data, function(d) { return parseInt(d.Weekday); });
+
+        var x_range = d3.scaleLinear()
+            .domain([min_x, max_x])
+            .range([0, chart_width]);
+
+        var y_range = d3.scaleLinear()
+            .domain([min_value, max_value])
+            .range([chart_height, 0]);
+
+
+        let svg = d3.select('.composite5');
+        svg.attr('width', chart_width).attr('height', chart_height);
+        svg.selectAll("g")
+            .data(data)
+            .enter()
+            .append("g")
+            .append("circle")
+            .style('stroke-width', 1).style('stroke', 'black')
+            .attr('cx', function (data) {
+                return x_range(data.Weekday);
+            })
+            .attr('cy', function (data) {
+                return y_range(data.ALEX);
+            })
+            .attr('r', 1);
+    });
+</script>
+
+</html>
